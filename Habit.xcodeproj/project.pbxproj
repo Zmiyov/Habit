@@ -19,6 +19,8 @@
 		A5B239332895905200410D85 /* HabitDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239322895905200410D85 /* HabitDetailViewController.swift */; };
 		A5B239352895906500410D85 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239342895906500410D85 /* UserDetailViewController.swift */; };
 		A5B23937289591F500410D85 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B23936289591F500410D85 /* Habit.swift */; };
+		A5B239392895948800410D85 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239382895948800410D85 /* APIRequest.swift */; };
+		A5B2393B28959B2500410D85 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2393A28959B2500410D85 /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		A5B239322895905200410D85 /* HabitDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailViewController.swift; sourceTree = "<group>"; };
 		A5B239342895906500410D85 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		A5B23936289591F500410D85 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		A5B239382895948800410D85 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		A5B2393A28959B2500410D85 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				A5B239182895620000410D85 /* SceneDelegate.swift */,
 				A5B2391C2895620000410D85 /* Main.storyboard */,
 				A5B23936289591F500410D85 /* Habit.swift */,
+				A5B239382895948800410D85 /* APIRequest.swift */,
+				A5B2393A28959B2500410D85 /* APIService.swift */,
 				A5B239322895905200410D85 /* HabitDetailViewController.swift */,
 				A5B239342895906500410D85 /* UserDetailViewController.swift */,
 				A5B2392A28958E5200410D85 /* HomeCollectionViewController.swift */,
@@ -160,10 +166,12 @@
 				A5B2392F28958E7A00410D85 /* UserCollectionViewController.swift in Sources */,
 				A5B239352895906500410D85 /* UserDetailViewController.swift in Sources */,
 				A5B2392D28958E7000410D85 /* HabitCollectionViewController.swift in Sources */,
+				A5B2393B28959B2500410D85 /* APIService.swift in Sources */,
 				A5B239172895620000410D85 /* AppDelegate.swift in Sources */,
 				A5B2393128958E8600410D85 /* LogHabitCollectionViewController.swift in Sources */,
 				A5B23937289591F500410D85 /* Habit.swift in Sources */,
 				A5B239332895905200410D85 /* HabitDetailViewController.swift in Sources */,
+				A5B239392895948800410D85 /* APIRequest.swift in Sources */,
 				A5B239192895620000410D85 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
