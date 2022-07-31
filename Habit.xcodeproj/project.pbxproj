@@ -21,6 +21,7 @@
 		A5B23937289591F500410D85 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B23936289591F500410D85 /* Habit.swift */; };
 		A5B239392895948800410D85 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239382895948800410D85 /* APIRequest.swift */; };
 		A5B2393B28959B2500410D85 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2393A28959B2500410D85 /* APIService.swift */; };
+		A5C0AC9E2896729F00AE57A2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0AC9D2896729F00AE57A2 /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		A5B23936289591F500410D85 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		A5B239382895948800410D85 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		A5B2393A28959B2500410D85 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		A5C0AC9D2896729F00AE57A2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				A5B239342895906500410D85 /* UserDetailViewController.swift */,
 				A5B2392A28958E5200410D85 /* HomeCollectionViewController.swift */,
 				A5B2392C28958E7000410D85 /* HabitCollectionViewController.swift */,
+				A5C0AC9D2896729F00AE57A2 /* Settings.swift */,
 				A5B2392E28958E7A00410D85 /* UserCollectionViewController.swift */,
 				A5B2393028958E8600410D85 /* LogHabitCollectionViewController.swift */,
 				A5B2391F2895620200410D85 /* Assets.xcassets */,
@@ -168,6 +171,7 @@
 				A5B2392D28958E7000410D85 /* HabitCollectionViewController.swift in Sources */,
 				A5B2393B28959B2500410D85 /* APIService.swift in Sources */,
 				A5B239172895620000410D85 /* AppDelegate.swift in Sources */,
+				A5C0AC9E2896729F00AE57A2 /* Settings.swift in Sources */,
 				A5B2393128958E8600410D85 /* LogHabitCollectionViewController.swift in Sources */,
 				A5B23937289591F500410D85 /* Habit.swift in Sources */,
 				A5B239332895905200410D85 /* HabitDetailViewController.swift in Sources */,
