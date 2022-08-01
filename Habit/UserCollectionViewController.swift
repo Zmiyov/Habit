@@ -11,6 +11,9 @@ private let reuseIdentifier = "Cell"
 
 class UserCollectionViewController: UICollectionViewController {
     
+    var userRequestTask: Task<Void, Never>? = nil
+    deinit{ usersRequestTask?.cancel() }
+    
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     
     enum ViewModel {
@@ -45,5 +48,28 @@ class UserCollectionViewController: UICollectionViewController {
 
     }
 
+    func update() {
+        userRequestTask?.cancel()
+        userRequestTask = Task {
+            if let users = try? await UserRequest().send() {
+                self.model.usersByID = users
+            } else {
+                self.model.usersByID = [:]
+            }
+            self.updateCollectionView()
+            
+            usersRequestTask = nil
+        }
+    }
+    
+    func updateCollectionView() {
+        let users = model.usersByID.values.sorted().reduce(into: [ViewModel.Item]()) { partialResult, user in
+            partialResult.append(ViewModel.Item(user: user, isFollowed: model.followedUsers.contains(user)))
+        }
+        
+        let itemsBySection = [0 : users]
+        
+        dataSource.applySnapshotUsing(sectionIDs: [0], itemsBySection: itemsBySection)
+    }
 
 }
