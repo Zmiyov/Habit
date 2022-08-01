@@ -24,6 +24,7 @@
 		A5C0AC9E2896729F00AE57A2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0AC9D2896729F00AE57A2 /* Settings.swift */; };
 		A5C0ACA02897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0AC9F2897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift */; };
 		A5C0ACA228980C5700AE57A2 /* NamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0ACA128980C5700AE57A2 /* NamedSectionHeaderView.swift */; };
+		A5C0ACA628983CEB00AE57A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0ACA528983CEA00AE57A2 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		A5C0AC9D2896729F00AE57A2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A5C0AC9F2897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewDiffableDataSource+ViewModel.swift"; sourceTree = "<group>"; };
 		A5C0ACA128980C5700AE57A2 /* NamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedSectionHeaderView.swift; sourceTree = "<group>"; };
+		A5C0ACA528983CEA00AE57A2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = Habit/User.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		A5C0ACA3289835A900AE57A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A5C0ACA528983CEA00AE57A2 /* User.swift */,
 				A5B23936289591F500410D85 /* Habit.swift */,
 				A5C0AC9D2896729F00AE57A2 /* Settings.swift */,
 			);
@@ -195,6 +198,7 @@
 				A5B2393B28959B2500410D85 /* APIService.swift in Sources */,
 				A5C0ACA02897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift in Sources */,
 				A5B239172895620000410D85 /* AppDelegate.swift in Sources */,
+				A5C0ACA628983CEB00AE57A2 /* User.swift in Sources */,
 				A5C0AC9E2896729F00AE57A2 /* Settings.swift in Sources */,
 				A5B2393128958E8600410D85 /* LogHabitCollectionViewController.swift in Sources */,
 				A5B23937289591F500410D85 /* Habit.swift in Sources */,

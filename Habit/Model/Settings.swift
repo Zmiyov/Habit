@@ -11,6 +11,15 @@ struct Settings {
     static var shared = Settings()
     private let defaults = UserDefaults.standard
     
+    var followedUsersIDs: [String] {
+        get {
+            return unarchiveJSON(key: Setting.followedUsersIDs) ?? []
+        }
+        set {
+            archiveJSON(value: newValue, key: Setting.followedUsersIDs)
+        }
+    }
+    
     var favoriteHabits: [Habit] {
         get {
             return unarchiveJSON(key: Setting.favoriteHabits) ?? []
@@ -21,6 +30,7 @@ struct Settings {
     }
     
     enum Setting {
+        static let followedUsersIDs = "followedUsersIDs"
         static let favoriteHabits = "favoriteHabits"
     }
     
