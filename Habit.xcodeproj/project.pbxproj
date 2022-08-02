@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A59D648628999FFB00A9326B /* HabitStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59D648528999FFB00A9326B /* HabitStatistics.swift */; };
 		A5B239172895620000410D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239162895620000410D85 /* AppDelegate.swift */; };
 		A5B239192895620000410D85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239182895620000410D85 /* SceneDelegate.swift */; };
 		A5B2391E2895620000410D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B2391C2895620000410D85 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A59D648528999FFB00A9326B /* HabitStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatistics.swift; sourceTree = "<group>"; };
 		A5B239132895620000410D85 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B239162895620000410D85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5B239182895620000410D85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A5B239322895905200410D85 /* HabitDetailViewController.swift */,
+				A59D648528999FFB00A9326B /* HabitStatistics.swift */,
 				A5B239342895906500410D85 /* UserDetailViewController.swift */,
 				A5C0ACA128980C5700AE57A2 /* NamedSectionHeaderView.swift */,
 			);
@@ -193,6 +196,7 @@
 				A5B2392B28958E5200410D85 /* HomeCollectionViewController.swift in Sources */,
 				A5C0ACA228980C5700AE57A2 /* NamedSectionHeaderView.swift in Sources */,
 				A5B2392F28958E7A00410D85 /* UserCollectionViewController.swift in Sources */,
+				A59D648628999FFB00A9326B /* HabitStatistics.swift in Sources */,
 				A5B239352895906500410D85 /* UserDetailViewController.swift in Sources */,
 				A5B2392D28958E7000410D85 /* HabitCollectionViewController.swift in Sources */,
 				A5B2393B28959B2500410D85 /* APIService.swift in Sources */,
