@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 class UserCollectionViewController: UICollectionViewController {
     
     var userRequestTask: Task<Void, Never>? = nil
-    deinit{ usersRequestTask?.cancel() }
+    deinit{ userRequestTask?.cancel() }
     
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     
@@ -45,7 +45,12 @@ class UserCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        dataSource = createDataSource()
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = createLayout()
+        
+        update()
     }
 
     func update() {
@@ -58,7 +63,7 @@ class UserCollectionViewController: UICollectionViewController {
             }
             self.updateCollectionView()
             
-            usersRequestTask = nil
+            userRequestTask = nil
         }
     }
     
@@ -70,6 +75,35 @@ class UserCollectionViewController: UICollectionViewController {
         let itemsBySection = [0 : users]
         
         dataSource.applySnapshotUsing(sectionIDs: [0], itemsBySection: itemsBySection)
+    }
+    
+    func createDataSource() -> DataSourceType {
+        let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "User", for: indexPath) as! UICollectionViewListCell
+            
+            var content = cell.defaultContentConfiguration()
+            content.text = itemIdentifier.user.name
+            content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 11, leading: 8, bottom: 11, trailing: 8)
+            content.textProperties.alignment = .center
+            cell.contentConfiguration = content
+            
+            return cell
+        }
+        return dataSource
+    }
+    
+    func createLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalHeight(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.45))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 20
+        section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
 
 }
