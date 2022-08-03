@@ -14,6 +14,9 @@ class HabitDetailViewController: UIViewController {
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     
+    var habitStatisticsRequestTask: Task<Void, Never>? = nil
+    deinit { habitStatisticsRequestTask?.cancel()}
+    
     var habit: Habit!
     
     init?(coder: NSCoder, habit: Habit) {
@@ -72,15 +75,25 @@ class HabitDetailViewController: UIViewController {
 
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func update() {
+        habitStatisticsRequestTask?.cancel()
+        habitStatisticsRequestTask = Task {
+            if let statistics = try? await
+                HabitStatisticsRequest(habitNames: [habit.name]).send(),
+            statistics.count > 0 {
+                self.model.habitStatistics = statistics[0]
+            } else {
+                self.model.habitStatistics = nil
+            }
+            self.updateCollectionView()
+            
+            habitStatisticsRequestTask = nil
+        }
     }
-    */
+    
+    func updateCollectionView() {
+        let items = (self.model.habitStatistics?.userCounts.map { ViewModel.Item.single($0) } ?? []).sorted(by: >)
+        dataSource.applySnapshotUsing(sectionIDs: [.remaining], itemsBySection: [.remaining: items])
+    }
 
 }
