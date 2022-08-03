@@ -68,7 +68,7 @@
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="414" height="50"/>
                                 <connections>
-                                    <segue destination="Omb-jF-jMd" kind="show" id="imh-om-AB5"/>
+                                    <segue destination="Omb-jF-jMd" kind="show" destinationCreationSelector="showHabitDetail:sender:" id="imh-om-AB5"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -334,9 +334,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Kpk-OH-aon" kind="relationship" relationship="viewControllers" id="BfR-ZG-93p"/>
                         <segue destination="DVL-OD-Rqf" kind="relationship" relationship="viewControllers" id="0ao-wD-goM"/>
                         <segue destination="ZhF-Kv-6n8" kind="relationship" relationship="viewControllers" id="ZDa-b0-L9r"/>
+                        <segue destination="Kpk-OH-aon" kind="relationship" relationship="viewControllers" id="BfR-ZG-93p"/>
                         <segue destination="D4u-cx-V3r" kind="relationship" relationship="viewControllers" id="fmT-bl-OTj"/>
                     </connections>
                 </tabBarController>

@@ -15,17 +15,17 @@ class HabitDetailViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     
     var habitStatisticsRequestTask: Task<Void, Never>? = nil
-    deinit { habitStatisticsRequestTask?.cancel()}
+    deinit { habitStatisticsRequestTask?.cancel() }
     
     var habit: Habit!
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     init?(coder: NSCoder, habit: Habit) {
         self.habit = habit
         super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
@@ -44,7 +44,6 @@ class HabitDetailViewController: UIViewController {
                 switch (lhs, rhs) {
                 case (.single(let lCount), .single(let rCount)):
                     return lCount.count < rCount.count
-                    
                 case (.multiple(let lCounts), .multiple(let rCounts)):
                     return lCounts.first!.count < rCounts.first!.count
                 case (.single, .multiple):
@@ -76,8 +75,9 @@ class HabitDetailViewController: UIViewController {
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createLayout()
-        
+
         update()
+        
     }
     
     func update() {
@@ -122,12 +122,13 @@ class HabitDetailViewController: UIViewController {
     }
     
     func createLayout() -> UICollectionViewCompositionalLayout {
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
-        let group = NSCollectionLayoutGroup(layoutSize: groupSize)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0)
