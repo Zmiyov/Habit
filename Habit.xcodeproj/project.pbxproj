@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A51D7835289C1C8A00B4DF16 /* UserStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D7834289C1C8A00B4DF16 /* UserStatistics.swift */; };
+		A51D7837289C1DDF00B4DF16 /* HabitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D7836289C1DDF00B4DF16 /* HabitCount.swift */; };
 		A59D648628999FFB00A9326B /* HabitStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59D648528999FFB00A9326B /* HabitStatistics.swift */; };
 		A5B239172895620000410D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239162895620000410D85 /* AppDelegate.swift */; };
 		A5B239192895620000410D85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239182895620000410D85 /* SceneDelegate.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A51D7834289C1C8A00B4DF16 /* UserStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatistics.swift; sourceTree = "<group>"; };
+		A51D7836289C1DDF00B4DF16 /* HabitCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCount.swift; sourceTree = "<group>"; };
 		A59D648528999FFB00A9326B /* HabitStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatistics.swift; sourceTree = "<group>"; };
 		A5B239132895620000410D85 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B239162895620000410D85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 				A5C0ACA528983CEA00AE57A2 /* User.swift */,
 				A5B23936289591F500410D85 /* Habit.swift */,
 				A5C0AC9D2896729F00AE57A2 /* Settings.swift */,
+				A51D7834289C1C8A00B4DF16 /* UserStatistics.swift */,
+				A51D7836289C1DDF00B4DF16 /* HabitCount.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,8 +207,10 @@
 				A5B2392D28958E7000410D85 /* HabitCollectionViewController.swift in Sources */,
 				A5B2393B28959B2500410D85 /* APIService.swift in Sources */,
 				A5C0ACA02897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift in Sources */,
+				A51D7837289C1DDF00B4DF16 /* HabitCount.swift in Sources */,
 				A5B239172895620000410D85 /* AppDelegate.swift in Sources */,
 				A5C0ACA628983CEB00AE57A2 /* User.swift in Sources */,
+				A51D7835289C1C8A00B4DF16 /* UserStatistics.swift in Sources */,
 				A5C0AC9E2896729F00AE57A2 /* Settings.swift in Sources */,
 				A5B2393128958E8600410D85 /* LogHabitCollectionViewController.swift in Sources */,
 				A5B23937289591F500410D85 /* Habit.swift in Sources */,
