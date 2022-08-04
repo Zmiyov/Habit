@@ -22,3 +22,4 @@ extension HabitCount: Hashable {
     static func ==(_ lhs: HabitCount, _ rhs: HabitCount) -> Bool {
         return lhs.habit == rhs.habit
     }
+}

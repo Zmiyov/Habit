@@ -36,3 +36,27 @@ struct HabitStatisticsRequest: APIRequest {
         }
     }
 }
+
+struct userStatisticsRequest: APIRequest {
+    typealias Response = [UserStatistics]
+    
+    var userIDs: [String]?
+    
+    var path: String { "/userStats" }
+    
+    var queryItems: [URLQueryItem]? {
+        if let userIDs = userIDs {
+            return [URLQueryItem(name: "ids", value: userIDs.joined(separator: ","))]
+        } else {
+            return nil
+        }
+    }
+}
+
+struct HabitLeadStatisticsRequest: APIRequest {
+    typealias Response = UserStatistics
+    
+    var userID: String
+    
+    var path: String { "/userLeadingStats/\(userID)" }
+}

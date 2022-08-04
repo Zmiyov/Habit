@@ -25,6 +25,34 @@ class UserDetailViewController: UIViewController {
         super.init(coder: coder)
     }
     
+    typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
+    
+    enum ViewModel {
+        enum Section: Hashable, Comparable {
+            case leading
+            case category(_ category: Category)
+            
+            static func < (lhs: Section, rhs: Section) -> Bool {
+                switch (lhs, rhs) {
+                case (.leading, .category), (.leading, .leading):
+                    return true
+                case (.category, .leading):
+                    return false
+                case (.category(let category1), .category(let category2)):
+                    return category1.name > category2.name
+                }
+            }
+        }
+        typealias Item = HabitCount
+    }
+    
+    struct Model {
+        var userStats: UserStatistics?
+        var leadingStats: UserStatistics?
+    }
+    
+    var dataSource: DataSourceType!
+    var model = Model()
     
     override func viewDidLoad() {
         super.viewDidLoad()
