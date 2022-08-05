@@ -54,6 +54,15 @@ class UserDetailViewController: UIViewController {
     var dataSource: DataSourceType!
     var model = Model()
     
+    var imageRequestTask: Task<Void, Never>? = nil
+    var userStatisticsRequestTask: Task<Void, Never>? = nil
+    var habitLeadStatisticsRequestTask: Task<Void, Never>? = nil
+    deinit {
+        imageRequestTask?.cancel()
+        userStatisticsRequestTask?.cancel()
+        habitLeadStatisticsRequestTask?.cancel()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,15 +70,49 @@ class UserDetailViewController: UIViewController {
         bioLabel.text = user.bio
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func update() {
+        userStatisticsRequestTask?.cancel()
+        userStatisticsRequestTask = Task {
+            if let userStats = try? await UserStatisticsRequest(userIDs: [user.id]).send(), userStats.count > 0 {
+                self.model.userStats = userStats[0]
+            } else {
+                self.model.userStats = nil
+            }
+            self.updateCollectionView()
+            
+            userStatisticsRequestTask = nil
+        }
+        habitLeadStatisticsRequestTask?.cancel()
+        habitLeadStatisticsRequestTask = Task {
+            if let userStats = try? await HabitLeadStatisticsRequest(userID: user.id).send() {
+                self.model.leadingStats = userStats
+            } else {
+                self.model.leadingStats = nil
+            }
+            self.updateCollectionView()
+            
+            habitLeadStatisticsRequestTask = nil
+        }
     }
-    */
+    
+    func updateCollectionView() {
+        guard let userStatistics = model.userStats,
+              let leadingStatistics = model.leadingStats else { return }
+        
+        var itemsBySection = userStatistics.habitCounts.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, habitCount in
+            let section: ViewModel.Section
+            
+            if leadingStatistics.habitCounts.contains(habitCount) {
+                section = .leading
+            } else {
+                section = .category(habitCount.habit.category)
+            }
+            partialResult[section, default: []].append(habitCount)
+        }
+        itemsBySection = itemsBySection.mapValues { $0.sorted() }
+        let sectionIDs = itemsBySection.keys.sorted()
+        
+        dataSource.applySnapshotUsing(sectionIDs: sectionIDs, itemsBySection: itemsBySection)
+    }
 
 }

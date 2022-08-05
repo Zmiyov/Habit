@@ -67,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A51D7838289C24FF00B4DF16 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A5B239382895948800410D85 /* APIRequest.swift */,
+				A5B2393A28959B2500410D85 /* APIService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		A5B2390A2895620000410D85 = {
 			isa = PBXGroup;
 			children = (
@@ -90,8 +99,7 @@
 				A5B239182895620000410D85 /* SceneDelegate.swift */,
 				A5B2391C2895620000410D85 /* Main.storyboard */,
 				A5C0ACA3289835A900AE57A2 /* Model */,
-				A5B239382895948800410D85 /* APIRequest.swift */,
-				A5B2393A28959B2500410D85 /* APIService.swift */,
+				A51D7838289C24FF00B4DF16 /* Network */,
 				A5C0ACA4289835CD00AE57A2 /* View */,
 				A5B2392A28958E5200410D85 /* HomeCollectionViewController.swift */,
 				A5B2392C28958E7000410D85 /* HabitCollectionViewController.swift */,

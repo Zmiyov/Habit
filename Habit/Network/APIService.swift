@@ -37,7 +37,7 @@ struct HabitStatisticsRequest: APIRequest {
     }
 }
 
-struct userStatisticsRequest: APIRequest {
+struct UserStatisticsRequest: APIRequest {
     typealias Response = [UserStatistics]
     
     var userIDs: [String]?
