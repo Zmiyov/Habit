@@ -63,11 +63,30 @@ class UserDetailViewController: UIViewController {
         habitLeadStatisticsRequestTask?.cancel()
     }
     
+    enum SectionHeader: String {
+        case kind = "SectionHeader"
+        case reuse = "HeaderView"
+        
+        var identifier: String {
+            return rawValue
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         userNameLabel.text = user.name
         bioLabel.text = user.bio
+        
+        collectionView.register(NamedSectionHeaderView.self,
+                                forSupplementaryViewOfKind: SectionHeader.kind.identifier,
+                                withReuseIdentifier: SectionHeader.reuse.identifier)
+        
+        dataSource = createDataSource()
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = createLayout()
+        
+        update()
     }
     
     func update() {
@@ -113,6 +132,54 @@ class UserDetailViewController: UIViewController {
         let sectionIDs = itemsBySection.keys.sorted()
         
         dataSource.applySnapshotUsing(sectionIDs: sectionIDs, itemsBySection: itemsBySection)
+    }
+    
+    func createDataSource() -> DataSourceType {
+        let dataSource = DataSourceType(collectionView: collectionView) { (collectionView, indexPath, habitStat) -> UICollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HabitCount", for: indexPath) as! UICollectionViewListCell
+            
+            var content = UIListContentConfiguration.subtitleCell()
+            content.text = habitStat.habit.name
+            content.secondaryText = "\(habitStat.count)"
+            
+            content.prefersSideBySideTextAndSecondaryText = true
+            content.textProperties.font = .preferredFont(forTextStyle: .headline)
+            content.secondaryTextProperties.font = .preferredFont(forTextStyle: .body)
+            cell.contentConfiguration = content
+            return cell
+        }
+        dataSource.supplementaryViewProvider = { (collectionView, category, indexPath)  in
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: SectionHeader.kind.identifier, withReuseIdentifier: SectionHeader.reuse.identifier, for: indexPath) as! NamedSectionHeaderView
+            
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            switch section {
+            case .leading:
+                header.nameLabel.text = "Leading"
+            case .category(let category):
+                header.nameLabel.text = category.name
+            }
+            return header
+        }
+        return dataSource
+    }
+    
+    func createLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: SectionHeader.kind.identifier, alignment: .top)
+        sectionHeader.pinToVisibleBounds = true
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0)
+        section.boundarySupplementaryItems = [sectionHeader]
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
 
 }

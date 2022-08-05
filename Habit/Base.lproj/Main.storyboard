@@ -273,7 +273,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionViewCellContentView>
                                 <connections>
-                                    <segue destination="4eQ-lU-clL" kind="show" id="F4i-Ib-UuS"/>
+                                    <segue destination="4eQ-lU-clL" kind="show" destinationCreationSelector="showUserDetail:sender:" id="F4i-Ib-UuS"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

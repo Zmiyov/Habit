@@ -119,4 +119,13 @@ class UserCollectionViewController: UICollectionViewController {
         return config
     }
 
+    @IBSegueAction func showUserDetail(_ coder: NSCoder, sender: UICollectionViewCell?) -> UserDetailViewController? {
+        guard let cell = sender,
+              let indexPath = collectionView.indexPath(for: cell),
+              let item = dataSource.itemIdentifier(for: indexPath) else {
+            return nil
+        }
+        
+        return UserDetailViewController(coder: coder, user: item.user)
+    }
 }
