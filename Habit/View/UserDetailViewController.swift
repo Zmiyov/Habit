@@ -89,6 +89,13 @@ class UserDetailViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         
         update()
+        
+        imageRequestTask = Task {
+            if let image = try? await ImageRequest(imageID: user.id).send() {
+                self.profileImageView.image = image
+            }
+            imageRequestTask = nil
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
