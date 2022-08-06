@@ -10,6 +10,7 @@ import Foundation
 struct Settings {
     static var shared = Settings()
     private let defaults = UserDefaults.standard
+    let currentUser = User(id: "activeUser", name: "Volodymyr Pysarenko", color: nil, bio: nil)
     
     var followedUsersIDs: [String] {
         get {
