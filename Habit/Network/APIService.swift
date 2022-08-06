@@ -68,3 +68,27 @@ struct ImageRequest: APIRequest {
     
     var path: String { "/images/" + imageID}
 }
+
+struct LogHabitRequest: APIRequest {
+    typealias Response = Void
+    
+    var loggedHabit: LoggedHabit
+    
+    var path: String { "/loggedHabit" }
+    
+    var postData: Data? {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return try! encoder.encode(loggedHabit)
+    }
+}
+
+extension APIRequest {
+    func send() async throws -> Void {
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw APIRequestError.requestFailed
+        }
+    }
+}
