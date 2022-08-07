@@ -20,6 +20,12 @@ class HomeCollectionViewController: UICollectionViewController {
         combinedStatisticsRequestTask?.cancel()
     }
     
+    static let formatter: NumberFormatter = {
+        var f = NumberFormatter()
+        f.numberStyle = .ordinal
+        return f
+    }()
+    
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     
     enum ViewModel {
@@ -92,6 +98,7 @@ class HomeCollectionViewController: UICollectionViewController {
     var updateTimer: Timer?
     
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -151,5 +158,57 @@ class HomeCollectionViewController: UICollectionViewController {
     func updateCollectionView() {
         var sectionID = [ViewModel.Section]()
         
+        let leaderboardItems = model.habitStatistics.filter { statistic in
+            return model.favoriteHabits.contains { $0.name == statistic.habit.name }
+        }
+            .sorted { $0.habit.name < $1.habit.name }
+            .reduce(into: [ViewModel.Item]()) { partial, statistic in
+                let rankedUserCounts = statistic.userCounts.sorted { $0.count > $1.count}
+                let myCountIndex = rankedUserCounts.firstIndex{ $0.user.id == self.model.currentUser.id }
+                
+                
+                
+                func userRankingString(from userCount: UserCount) -> String {
+                    var name = userCount.user.name
+                    var ranking = ""
+                    
+                    if userCount.user.id == self.model.currentUser.id {
+                        name = "You"
+                        ranking = "(\(ordinalString(from: myCountIndex!)))"
+                    }
+                    return "\(name) \(userCount.count)" + ranking
+                }
+                
+                var leadingRanking: String?
+                var secondaryRanking: String?
+                
+                switch rankedUserCounts.count {
+                case 0:
+                    leadingRanking = "Nobody yet!"
+                case 1:
+                    let onlyCount = rankedUserCounts.first!
+                    leadingRanking = userRankingString(from: onlyCount)
+                default:
+                    leadingRanking = userRankingString(from: rankedUserCounts[0])
+                    if let myCountIndex = myCountIndex, myCountIndex != rankedUserCounts.startIndex {
+                        secondaryRanking = userRankingString(from: rankedUserCounts[myCountIndex])
+                    } else {
+                        secondaryRanking = userRankingString(from: rankedUserCounts[1])
+                    }
+                }
+                
+                let leaderboardItem = ViewModel.Item.leaderBoardHabit(name: statistic.habit.name, leadingUserRanking: leadingRanking, secondaryUserRanking: secondaryRanking)
+                partial.append(leaderboardItem)
+                
+            }
+        sectionID.append(.leaderBoard)
+        var itemsBySection = [ViewModel.Section.leaderBoard: leaderboardItems]
+        dataSource.applySnapshotUsing(sectionIDs: sectionID, itemsBySection: itemsBySection)
     }
+    
+    func ordinalString(from number: Int) -> String {
+        return Self.formatter.string(from: NSNumber(integerLiteral: number + 1))!
+    }
+    
+    
 }
