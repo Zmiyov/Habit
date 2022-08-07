@@ -10,79 +10,79 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class HomeCollectionViewController: UICollectionViewController {
+    
+    typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
+    
+    enum ViewModel {
+        enum Section: Hashable {
+            case leaderBoard
+            case followedUsers
+        }
+        
+        enum Item: Hashable {
+            case leaderBoardHabit(name: String, leadingUserRanking: String?, secondaryUserRanking: String?)
+            case followedUser(_ user: User, message: String)
+            
+            func hash(into hasher: inout Hasher) {
+                switch self {
+                case .leaderBoardHabit(let name, _, _):
+                    hasher.combine(name)
+                case .followedUser(let User, _):
+                    hasher.combine(User)
+                }
+            }
+            static func ==(_ lhs: Item, _ rhs: Item) -> Bool {
+                switch (lhs, rhs) {
+                case (.leaderBoardHabit(let lName, _, _),
+                      .leaderBoardHabit(let rName, _, _)):
+                    return lName == rName
+                case (.followedUser(let lUser, _),
+                      .followedUser(let rUser, _)):
+                    return lUser == rUser
+                default:
+                    return false
+                }
+            }
+        }
+    }
+    
+    struct Model {
+        var usersByID = [String: User]()
+        var habitsByName = [String: Habit]()
+        var habitStatistics = [HabitStatistics]()
+        var userStatistics = [UserStatistics]()
+        
+        var currentUser: User {
+            return Settings.shared.currentUser
+        }
+        
+        var users: [User] {
+            return Array(usersByID.values)
+        }
+        
+        var habits: [Habit] {
+            return Array(habitsByName.values)
+        }
+        
+        var followedUsers: [User] {
+            return Array(usersByID.filter { Settings.shared.followedUsersIDs.contains($0.key)}.values)
+        }
+        
+        var favoriteHabits: [Habit] {
+            return Settings.shared.favoriteHabits
+        }
+        
+        var nonFavoriteHabits: [Habit] {
+            return habits.filter { !favoriteHabits.contains($0) }
+        }
+    }
+    
+    var model = Model()
+    var dataSource: DataSourceType!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-        // Configure the cell
-    
-        return cell
-    }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }
