@@ -69,13 +69,41 @@
                                     <outlet property="secondaryLabel" destination="UEn-lz-BfN" id="TY4-Iv-DqC"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1LE-za-XFl">
-                                <rect key="frame" x="143" y="110" width="128" height="128"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FollowedUser" id="1LE-za-XFl" customClass="FollowedUserCollectionViewCell" customModule="Habit" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="110" width="414" height="128"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GkY-eZ-YZZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x19-qU-RI1">
+                                            <rect key="frame" x="8" y="8" width="74.5" height="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MW-Zl-MXN">
+                                            <rect key="frame" x="32" y="41" width="374" height="79"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="x19-qU-RI1" firstAttribute="top" secondItem="GkY-eZ-YZZ" secondAttribute="top" constant="8" id="McR-b0-xV0"/>
+                                        <constraint firstAttribute="bottom" secondItem="9MW-Zl-MXN" secondAttribute="bottom" constant="8" id="WEz-0S-nJF"/>
+                                        <constraint firstItem="9MW-Zl-MXN" firstAttribute="leading" secondItem="x19-qU-RI1" secondAttribute="leading" constant="24" id="eIt-y6-8fo"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x19-qU-RI1" secondAttribute="trailing" constant="8" id="g84-a6-QC9"/>
+                                        <constraint firstItem="x19-qU-RI1" firstAttribute="leading" secondItem="GkY-eZ-YZZ" secondAttribute="leading" constant="8" id="gZ1-ip-AbW"/>
+                                        <constraint firstItem="9MW-Zl-MXN" firstAttribute="top" secondItem="x19-qU-RI1" secondAttribute="bottom" constant="16" id="w7C-Pc-CAZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="9MW-Zl-MXN" secondAttribute="trailing" constant="8" id="yos-xE-rdd"/>
+                                    </constraints>
                                 </collectionViewCellContentView>
+                                <size key="customSize" width="414" height="128"/>
+                                <connections>
+                                    <outlet property="primaryTextLabel" destination="x19-qU-RI1" id="cmH-7R-ilw"/>
+                                    <outlet property="secondaryTextLabel" destination="9MW-Zl-MXN" id="Hmw-Yx-diF"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

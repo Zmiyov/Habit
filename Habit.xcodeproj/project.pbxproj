@@ -11,6 +11,7 @@
 		A51D7837289C1DDF00B4DF16 /* HabitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D7836289C1DDF00B4DF16 /* HabitCount.swift */; };
 		A51D783A289E81FB00B4DF16 /* LoggedHabit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D7839289E81FB00B4DF16 /* LoggedHabit.swift */; };
 		A51D783C289FD5A900B4DF16 /* LeaderBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D783B289FD5A900B4DF16 /* LeaderBoardCollectionViewCell.swift */; };
+		A51D783E289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D783D289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift */; };
 		A59D648628999FFB00A9326B /* HabitStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59D648528999FFB00A9326B /* HabitStatistics.swift */; };
 		A5B239172895620000410D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239162895620000410D85 /* AppDelegate.swift */; };
 		A5B239192895620000410D85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B239182895620000410D85 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 		A51D7836289C1DDF00B4DF16 /* HabitCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCount.swift; sourceTree = "<group>"; };
 		A51D7839289E81FB00B4DF16 /* LoggedHabit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoggedHabit.swift; path = Habit/LoggedHabit.swift; sourceTree = SOURCE_ROOT; };
 		A51D783B289FD5A900B4DF16 /* LeaderBoardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardCollectionViewCell.swift; sourceTree = "<group>"; };
+		A51D783D289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		A59D648528999FFB00A9326B /* HabitStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatistics.swift; sourceTree = "<group>"; };
 		A5B239132895620000410D85 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B239162895620000410D85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				A5B239182895620000410D85 /* SceneDelegate.swift */,
 				A5B2391C2895620000410D85 /* Main.storyboard */,
 				A51D783B289FD5A900B4DF16 /* LeaderBoardCollectionViewCell.swift */,
+				A51D783D289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift */,
 				A5C0ACA3289835A900AE57A2 /* Model */,
 				A51D7838289C24FF00B4DF16 /* Network */,
 				A5C0ACA4289835CD00AE57A2 /* View */,
@@ -228,6 +231,7 @@
 				A51D7835289C1C8A00B4DF16 /* UserStatistics.swift in Sources */,
 				A5C0AC9E2896729F00AE57A2 /* Settings.swift in Sources */,
 				A5B2393128958E8600410D85 /* LogHabitCollectionViewController.swift in Sources */,
+				A51D783E289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift in Sources */,
 				A5B23937289591F500410D85 /* Habit.swift in Sources */,
 				A5B239332895905200410D85 /* HabitDetailViewController.swift in Sources */,
 				A5B239392895948800410D85 /* APIRequest.swift in Sources */,
