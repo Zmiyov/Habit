@@ -84,6 +84,18 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		A51D784128A11DCB00B4DF16 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A5B2392A28958E5200410D85 /* HomeCollectionViewController.swift */,
+				A5B2392C28958E7000410D85 /* HabitCollectionViewController.swift */,
+				A5B2392E28958E7A00410D85 /* UserCollectionViewController.swift */,
+				A5B2393028958E8600410D85 /* LogHabitCollectionViewController.swift */,
+				A5C0AC9F2897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A5B2390A2895620000410D85 = {
 			isa = PBXGroup;
 			children = (
@@ -106,17 +118,10 @@
 				A5B239162895620000410D85 /* AppDelegate.swift */,
 				A5B239182895620000410D85 /* SceneDelegate.swift */,
 				A5B2391C2895620000410D85 /* Main.storyboard */,
-				A51D783B289FD5A900B4DF16 /* LeaderBoardCollectionViewCell.swift */,
-				A51D783D289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift */,
-				A5C0ACA3289835A900AE57A2 /* Model */,
 				A51D7838289C24FF00B4DF16 /* Network */,
+				A5C0ACA3289835A900AE57A2 /* Model */,
 				A5C0ACA4289835CD00AE57A2 /* View */,
-				A5B2392A28958E5200410D85 /* HomeCollectionViewController.swift */,
-				A51D783F289FEBF900B4DF16 /* CombinedStatistics.swift */,
-				A5B2392C28958E7000410D85 /* HabitCollectionViewController.swift */,
-				A5B2392E28958E7A00410D85 /* UserCollectionViewController.swift */,
-				A5B2393028958E8600410D85 /* LogHabitCollectionViewController.swift */,
-				A5C0AC9F2897FE7300AE57A2 /* UICollectionViewDiffableDataSource+ViewModel.swift */,
+				A51D784128A11DCB00B4DF16 /* ViewModel */,
 				A5B2391F2895620200410D85 /* Assets.xcassets */,
 				A5B239212895620200410D85 /* LaunchScreen.storyboard */,
 				A5B239242895620200410D85 /* Info.plist */,
@@ -127,12 +132,14 @@
 		A5C0ACA3289835A900AE57A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A51D7839289E81FB00B4DF16 /* LoggedHabit.swift */,
-				A5C0ACA528983CEA00AE57A2 /* User.swift */,
-				A5B23936289591F500410D85 /* Habit.swift */,
 				A5C0AC9D2896729F00AE57A2 /* Settings.swift */,
+				A5C0ACA528983CEA00AE57A2 /* User.swift */,
 				A51D7834289C1C8A00B4DF16 /* UserStatistics.swift */,
+				A51D783F289FEBF900B4DF16 /* CombinedStatistics.swift */,
+				A5B23936289591F500410D85 /* Habit.swift */,
 				A51D7836289C1DDF00B4DF16 /* HabitCount.swift */,
+				A59D648528999FFB00A9326B /* HabitStatistics.swift */,
+				A51D7839289E81FB00B4DF16 /* LoggedHabit.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,9 +148,10 @@
 			isa = PBXGroup;
 			children = (
 				A5B239322895905200410D85 /* HabitDetailViewController.swift */,
-				A59D648528999FFB00A9326B /* HabitStatistics.swift */,
 				A5B239342895906500410D85 /* UserDetailViewController.swift */,
 				A5C0ACA128980C5700AE57A2 /* NamedSectionHeaderView.swift */,
+				A51D783B289FD5A900B4DF16 /* LeaderBoardCollectionViewCell.swift */,
+				A51D783D289FDCF500B4DF16 /* FollowedUserCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

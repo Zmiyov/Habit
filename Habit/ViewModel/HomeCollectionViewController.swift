@@ -119,6 +119,10 @@ class HomeCollectionViewController: UICollectionViewController {
             
             habitRequestTask = nil
         }
+        
+        dataSource = createDataSource()
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = createLayout()
 
     }
     
@@ -204,6 +208,46 @@ class HomeCollectionViewController: UICollectionViewController {
         sectionID.append(.leaderBoard)
         var itemsBySection = [ViewModel.Section.leaderBoard: leaderboardItems]
         dataSource.applySnapshotUsing(sectionIDs: sectionID, itemsBySection: itemsBySection)
+    }
+    
+    func createDataSource() -> DataSourceType {
+        let dataSource = DataSourceType(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
+            switch item {
+            case .leaderBoardHabit(let name, let leadingUserRanking, let secondaryUserRanking):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LeaderBoardHabit", for: indexPath) as! LeaderBoardCollectionViewCell
+                cell.habitNameLabel.text = name
+                cell.leaderLabel.text = leadingUserRanking
+                cell.secondaryLabel.text = secondaryUserRanking
+                return cell
+            default:
+                return nil
+            }
+        }
+        return dataSource
+    }
+    
+    func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, environment) -> NSCollectionLayoutSection? in
+            switch self.dataSource.snapshot().sectionIdentifiers[sectionIndex] {
+            case .leaderBoard:
+                let leaderBoardItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.3))
+                let leaderBoardItem = NSCollectionLayoutItem(layoutSize: leaderBoardItemSize)
+                
+                let verticalTrioSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.75), heightDimension: .fractionalWidth(0.75))
+                let leaderboardVerticalTrio = NSCollectionLayoutGroup.vertical(layoutSize: verticalTrioSize, subitem: leaderBoardItem, count: 3)
+                leaderboardVerticalTrio.interItemSpacing = .fixed(10)
+                
+                let leaderboardSection = NSCollectionLayoutSection(group: leaderboardVerticalTrio)
+                leaderboardSection.interGroupSpacing = 20
+                
+                leaderboardSection.orthogonalScrollingBehavior = .continuous
+                leaderboardSection.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 20, bottom: 20, trailing: 20)
+                return leaderboardSection
+            default:
+                return nil
+            }
+        }
+        return layout
     }
     
     func ordinalString(from number: Int) -> String {
