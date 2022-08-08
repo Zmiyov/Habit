@@ -206,7 +206,11 @@ class HomeCollectionViewController: UICollectionViewController {
                 
             }
         sectionID.append(.leaderBoard)
-        var itemsBySection = [ViewModel.Section.leaderBoard: leaderboardItems]
+        let itemsBySection = [ViewModel.Section.leaderBoard: leaderboardItems]
+        
+        var followedUserItems = [ViewModel.Item]()
+        
+        
         dataSource.applySnapshotUsing(sectionIDs: sectionID, itemsBySection: itemsBySection)
     }
     
@@ -220,6 +224,7 @@ class HomeCollectionViewController: UICollectionViewController {
                 cell.secondaryLabel.text = secondaryUserRanking
                 return cell
             default:
+                print("Create DataSource Error")
                 return nil
             }
         }
@@ -244,6 +249,7 @@ class HomeCollectionViewController: UICollectionViewController {
                 leaderboardSection.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 20, bottom: 20, trailing: 20)
                 return leaderboardSection
             default:
+                print("Layout is not created")
                 return nil
             }
         }
