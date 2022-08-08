@@ -206,10 +206,79 @@ class HomeCollectionViewController: UICollectionViewController {
                 
             }
         sectionID.append(.leaderBoard)
-        let itemsBySection = [ViewModel.Section.leaderBoard: leaderboardItems]
+        var itemsBySection = [ViewModel.Section.leaderBoard: leaderboardItems]
         
         var followedUserItems = [ViewModel.Item]()
+        func loggedHabitNames(for user: User) -> Set<String>{
+            var names = [String]()
+            if let stats = model.userStatistics.first(where: { $0.user == user }) {
+                names = stats.habitCounts.map { $0.habit.name }
+            }
+            return Set(names)
+        }
         
+        // Get the current user's logged habits and extract the favorites
+        let currentUserLoggedHabits = loggedHabitNames(for: model.currentUser)
+        let favoriteLoggedHabits = Set(model.favoriteHabits.map { $0.name }).intersection(currentUserLoggedHabits)
+        
+        // Loop through all the followed users
+        
+        for followedUser in model.followedUsers.sorted(by: { $0.name < $1.name}) {
+            let message: String
+            let followedUserLoggedHabits = loggedHabitNames(for: followedUser)
+        
+            // If the users have a habit in common:
+            let commonLoggedHabits = followedUserLoggedHabits.intersection(currentUserLoggedHabits)
+            if commonLoggedHabits.count > 0 {
+                // Pick the habit to focus on
+                let  habitName: String
+                let commonFavoriteLoggedHabits = followedUserLoggedHabits.intersection(commonLoggedHabits)
+                if commonFavoriteLoggedHabits.count > 0 {
+                    habitName = commonFavoriteLoggedHabits.sorted().first!
+                } else {
+                    habitName = commonLoggedHabits.sorted().first!
+                }
+                // Get the full statistics (all the user counts) for that habit
+                let habitStats = model.habitStatistics.first { $0.habit.name == habitName }!
+        
+                // Get the ranking for each user
+                let rankedUserCounts = habitStats.userCounts.sorted { $0.count > $1.count }
+                let currentUserRanking = rankedUserCounts.firstIndex { $0.user == model.currentUser }!
+                let followedUserRanking = rankedUserCounts.firstIndex { $0.user == followedUser }!
+        
+                // Construct the message depending on who's leading
+                if currentUserRanking < followedUserRanking {
+                    message = "Currenly #\(ordinalString(from: followedUserRanking)), behind you (#\(ordinalString(from: currentUserRanking))) in \(habitName).\nSend them a friendly reminder!"
+                } else if currentUserRanking > followedUserRanking {
+                    message = "Currently #\(ordinalString(from: followedUserRanking)), ahead of you (#\(ordinalString(from: currentUserRanking))) in \(habitName).\nYou might catch up with a little extra effort!"
+                } else {
+                    message = "You're tied at \(ordinalString(from: followedUserRanking)) in \(habitName)! Now's your chance to pull ahead."
+                }
+        
+            // Otherwise, if the followed user has logged at least one habit:
+            } else if followedUserLoggedHabits.count > 0  {
+                
+                // Get an arbitrary habit name
+                let habitName = followedUserLoggedHabits.sorted().first!
+        
+                // Get the full statistics (all the user counts) for that habit
+                let habitStats = model.habitStatistics.first { $0.habit.name == habitName }!
+        
+                // Get the user's ranking for that habit
+                let rankedUserCounts = habitStats.userCounts.sorted { $0.count > $1.count }
+                let followedUserRanking = rankedUserCounts.firstIndex { $0.user == followedUser }!
+        
+                // Construct the message
+                message = "Currently #\(ordinalString(from: followedUserRanking)), in \(habitName).\nMaybeyou should give this habit a look"
+        
+            // Otherwise, this user hasn't done anything
+            } else {
+                message = "This user doesn't seem to have done much yet. Chek in to see if they need any help getting started"
+            }
+            followedUserItems.append(.followedUser(followedUser, message: message))
+        }
+        sectionID.append(.followedUsers)
+        itemsBySection[.followedUsers] = followedUserItems
         
         dataSource.applySnapshotUsing(sectionIDs: sectionID, itemsBySection: itemsBySection)
     }
