@@ -292,9 +292,11 @@ class HomeCollectionViewController: UICollectionViewController {
                 cell.leaderLabel.text = leadingUserRanking
                 cell.secondaryLabel.text = secondaryUserRanking
                 return cell
-            default:
-                print("Create DataSource Error")
-                return nil
+            case .followedUser(let user, let message):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FollowedUser", for: indexPath) as! FollowedUserCollectionViewCell
+                cell.primaryTextLabel.text = user.name
+                cell.secondaryTextLabel.text = message
+                return cell
             }
         }
         return dataSource
@@ -317,9 +319,15 @@ class HomeCollectionViewController: UICollectionViewController {
                 leaderboardSection.orthogonalScrollingBehavior = .continuous
                 leaderboardSection.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 20, bottom: 20, trailing: 20)
                 return leaderboardSection
-            default:
-                print("Layout is not created")
-                return nil
+            case .followedUsers:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
+                let followedUserItem = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
+                let followedUserGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: followedUserItem, count: 1)
+                
+                let followedUserSection = NSCollectionLayoutSection(group: followedUserGroup)
+                return followedUserSection
             }
         }
         return layout
