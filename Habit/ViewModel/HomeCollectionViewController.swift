@@ -7,7 +7,71 @@
 
 import UIKit
 
+class SectionBackgroundView: UICollectionReusableView {
+    override func didMoveToSuperview() {
+        backgroundColor = .systemGray6
+    }
+}
+
 private let reuseIdentifier = "Cell"
+
+enum SupplementaryItemType {
+    case collectionSupplementaryView
+    case layoutDecorationView
+}
+
+protocol SupplementaryItem {
+    associatedtype ViewClass: UICollectionReusableView
+    
+    var itemType: SupplementaryItemType { get }
+    
+    var reuseIdentifier: String { get }
+    var viewKind: String { get }
+    var viewClass: ViewClass.Type { get }
+}
+
+extension SupplementaryItem {
+    func register(on collectionView: UICollectionView) {
+        switch itemType {
+        case .collectionSupplementaryView:
+            collectionView.register(ViewClass.self, forSupplementaryViewOfKind: viewKind, withReuseIdentifier: reuseIdentifier)
+        case .layoutDecorationView:
+            collectionView.collectionViewLayout.register(viewClass.self, forDecorationViewOfKind: viewKind)
+        }
+    }
+}
+
+enum SupplementaryView: String, CaseIterable, SupplementaryItem {
+    case leaderboardSectionHeader
+    case leaderboardBackground
+    case followedUsersSectionHeader
+    
+    var reuseIdentifier: String {
+        return rawValue
+    }
+    
+    var viewKind: String {
+        return rawValue
+    }
+    
+    var viewClass: UICollectionReusableView.Type {
+        switch self {
+        case .leaderboardSectionHeader:
+            return SectionBackgroundView.self
+        default:
+            return NamedSectionHeaderView.self
+        }
+    }
+    
+    var itemType: SupplementaryItemType {
+        switch self {
+        case .leaderboardBackground:
+            return .layoutDecorationView
+        default:
+            return .collectionSupplementaryView
+        }
+    }
+}
 
 class HomeCollectionViewController: UICollectionViewController {
     
@@ -269,7 +333,7 @@ class HomeCollectionViewController: UICollectionViewController {
                 let followedUserRanking = rankedUserCounts.firstIndex { $0.user == followedUser }!
         
                 // Construct the message
-                message = "Currently #\(ordinalString(from: followedUserRanking)), in \(habitName).\nMaybeyou should give this habit a look"
+                message = "Currently #\(ordinalString(from: followedUserRanking)), in \(habitName).\nMaybe you should give this habit a look"
         
             // Otherwise, this user hasn't done anything
             } else {
