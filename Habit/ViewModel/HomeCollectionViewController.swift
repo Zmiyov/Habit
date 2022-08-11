@@ -7,6 +7,12 @@
 
 import UIKit
 
+class SectionBackgroundView: UICollectionReusableView {
+    override func didMoveToSuperview() {
+        backgroundColor = .systemGray6
+    }
+}
+
 enum SupplementaryItemType {
     case collectionSupplementaryView
     case layoutDecorationView
