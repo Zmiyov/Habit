@@ -13,7 +13,7 @@ class SectionBackgroundView: UICollectionReusableView {
     }
 }
 
-private let reuseIdentifier = "Cell"
+//private let reuseIdentifier = "Cell"
 
 enum SupplementaryItemType {
     case collectionSupplementaryView
@@ -41,37 +41,7 @@ extension SupplementaryItem {
     }
 }
 
-enum SupplementaryView: String, CaseIterable, SupplementaryItem {
-    case leaderboardSectionHeader
-    case leaderboardBackground
-    case followedUsersSectionHeader
-    
-    var reuseIdentifier: String {
-        return rawValue
-    }
-    
-    var viewKind: String {
-        return rawValue
-    }
-    
-    var viewClass: UICollectionReusableView.Type {
-        switch self {
-        case .leaderboardSectionHeader:
-            return SectionBackgroundView.self
-        default:
-            return NamedSectionHeaderView.self
-        }
-    }
-    
-    var itemType: SupplementaryItemType {
-        switch self {
-        case .leaderboardBackground:
-            return .layoutDecorationView
-        default:
-            return .collectionSupplementaryView
-        }
-    }
-}
+
 
 class HomeCollectionViewController: UICollectionViewController {
     
@@ -161,7 +131,37 @@ class HomeCollectionViewController: UICollectionViewController {
     
     var updateTimer: Timer?
     
-
+    enum SupplementaryView: String, CaseIterable, SupplementaryItem {
+        case leaderboardSectionHeader
+        case leaderboardBackground
+        case followedUsersSectionHeader
+        
+        var reuseIdentifier: String {
+            return rawValue
+        }
+        
+        var viewKind: String {
+            return rawValue
+        }
+        
+        var viewClass: UICollectionReusableView.Type {
+            switch self {
+            case .leaderboardBackground:
+                return SectionBackgroundView.self
+            default:
+                return NamedSectionHeaderView.self
+            }
+        }
+        
+        var itemType: SupplementaryItemType {
+            switch self {
+            case .leaderboardBackground:
+                return .layoutDecorationView
+            default:
+                return .collectionSupplementaryView
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -187,6 +187,10 @@ class HomeCollectionViewController: UICollectionViewController {
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createLayout()
+        
+        for supplementaryView in SupplementaryView.allCases {
+            supplementaryView.register(on: collectionView)
+        }
 
     }
     
@@ -363,6 +367,29 @@ class HomeCollectionViewController: UICollectionViewController {
                 return cell
             }
         }
+        dataSource.supplementaryViewProvider = {
+            (collectionView, kind, indexPath) in
+            guard let elementKind = SupplementaryView(rawValue: kind) else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind.viewKind, withReuseIdentifier: elementKind.reuseIdentifier, for: indexPath)
+            
+            switch elementKind {
+            case .leaderboardSectionHeader:
+                let header = view as! NamedSectionHeaderView
+                header.nameLabel.text = "Leaderboard"
+                header.nameLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+                header.alignLabelToTop()
+                return header
+            case .followedUsersSectionHeader:
+                let header = view as! NamedSectionHeaderView
+                header.nameLabel.text = "Following"
+                header.nameLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+                header.alignLabelToYCenter()
+                return header
+            default:
+                return nil
+            }
+        }
+        
         return dataSource
     }
     
@@ -378,10 +405,21 @@ class HomeCollectionViewController: UICollectionViewController {
                 leaderboardVerticalTrio.interItemSpacing = .fixed(10)
                 
                 let leaderboardSection = NSCollectionLayoutSection(group: leaderboardVerticalTrio)
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(80))
+                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: SupplementaryView.leaderboardSectionHeader.viewKind, alignment: .top)
+                
+                let background = NSCollectionLayoutDecorationItem.background(elementKind: SupplementaryView.leaderboardBackground.viewKind)
+                
+                leaderboardSection.boundarySupplementaryItems = [header]
+                leaderboardSection.decorationItems = [background]
+                leaderboardSection.supplementariesFollowContentInsets = false
+                
                 leaderboardSection.interGroupSpacing = 20
                 
                 leaderboardSection.orthogonalScrollingBehavior = .continuous
                 leaderboardSection.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 20, bottom: 20, trailing: 20)
+                
                 return leaderboardSection
             case .followedUsers:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
@@ -391,6 +429,12 @@ class HomeCollectionViewController: UICollectionViewController {
                 let followedUserGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: followedUserItem, count: 1)
                 
                 let followedUserSection = NSCollectionLayoutSection(group: followedUserGroup)
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
+                let header  = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: SupplementaryView.followedUsersSectionHeader.viewKind, alignment: .top)
+                
+                followedUserSection.boundarySupplementaryItems = [header]
+                
                 return followedUserSection
             }
         }

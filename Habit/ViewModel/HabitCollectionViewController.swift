@@ -62,7 +62,6 @@ class HabitCollectionViewController: UICollectionViewController {
         collectionView.collectionViewLayout = createLayout()
         
         collectionView.register(NamedSectionHeaderView.self, forSupplementaryViewOfKind: SectionHeader.kind.identifier, withReuseIdentifier: SectionHeader.reuse.identifier)
-//        print(dataSource)
     }
     
     override func viewWillAppear(_ animated: Bool) {
