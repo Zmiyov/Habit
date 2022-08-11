@@ -7,7 +7,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+
 
 class HabitCollectionViewController: UICollectionViewController {
     
