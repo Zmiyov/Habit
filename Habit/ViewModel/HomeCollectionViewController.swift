@@ -365,6 +365,28 @@ class HomeCollectionViewController: UICollectionViewController {
                 return cell
             }
         }
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            guard let elementKind = SupplementaryView(rawValue: kind) else { return nil }
+            
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind.viewKind, withReuseIdentifier: elementKind.reuseIdentifier, for: indexPath)
+            
+            switch elementKind {
+            case .leaderboardSectionHeader:
+                let header = view as! NamedSectionHeaderView
+                header.nameLabel.text = "Leaderboard"
+                header.nameLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+                header.alignLabelToTop()
+                return header
+            case .followedUsersSectionHeader:
+                let header = view as! NamedSectionHeaderView
+                header.nameLabel.text = "Following"
+                header.nameLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+                header.alignLabelToYCenter()
+                return header
+            default:
+                return nil
+            }
+        }
         return dataSource
     }
     
