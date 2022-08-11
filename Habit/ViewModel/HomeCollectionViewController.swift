@@ -402,6 +402,16 @@ class HomeCollectionViewController: UICollectionViewController {
                 leaderboardVerticalTrio.interItemSpacing = .fixed(10)
                 
                 let leaderboardSection = NSCollectionLayoutSection(group: leaderboardVerticalTrio)
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(80))
+                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: SupplementaryView.leaderboardSectionHeader.viewKind, alignment: .top)
+                
+                let background = NSCollectionLayoutDecorationItem.background(elementKind: SupplementaryView.leaderboardBackground.viewKind)
+                
+                leaderboardSection.boundarySupplementaryItems = [header]
+                leaderboardSection.decorationItems = [background]
+                leaderboardSection.supplementariesFollowContentInsets = false
+                
                 leaderboardSection.interGroupSpacing = 20
                 
                 leaderboardSection.orthogonalScrollingBehavior = .continuous
@@ -415,6 +425,10 @@ class HomeCollectionViewController: UICollectionViewController {
                 let followedUserGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: followedUserItem, count: 1)
                 
                 let followedUserSection = NSCollectionLayoutSection(group: followedUserGroup)
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
+                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: SupplementaryView.followedUsersSectionHeader.viewKind, alignment: .top)
+                followedUserSection.boundarySupplementaryItems = [header]
                 return followedUserSection
             }
         }
