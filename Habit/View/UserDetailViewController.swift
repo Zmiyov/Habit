@@ -42,6 +42,15 @@ class UserDetailViewController: UIViewController {
                     return category1.name > category2.name
                 }
             }
+            
+            var sectionColor: UIColor {
+                switch self {
+                case .leading:
+                    return .systemGray4
+                case .category(let category):
+                    return category.color.uiColor
+                }
+            }
         }
         typealias Item = HabitCount
     }
@@ -194,6 +203,7 @@ class UserDetailViewController: UIViewController {
             case .category(let category):
                 header.nameLabel.text = category.name
             }
+            header.backgroundColor = section.sectionColor
             return header
         }
         return dataSource
