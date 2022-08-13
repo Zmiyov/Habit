@@ -97,12 +97,12 @@ class HomeCollectionViewController: UICollectionViewController {
         }
         
         enum Item: Hashable {
-            case leaderBoardHabit(name: String, leadingUserRanking: String?, secondaryUserRanking: String?)
+            case leaderboardHabit(name: String, leadingUserRanking: String?, secondaryUserRanking: String?)
             case followedUser(_ user: User, message: String)
             
             func hash(into hasher: inout Hasher) {
                 switch self {
-                case .leaderBoardHabit(let name, _, _):
+                case .leaderboardHabit(let name, _, _):
                     hasher.combine(name)
                 case .followedUser(let User, _):
                     hasher.combine(User)
@@ -110,8 +110,8 @@ class HomeCollectionViewController: UICollectionViewController {
             }
             static func ==(_ lhs: Item, _ rhs: Item) -> Bool {
                 switch (lhs, rhs) {
-                case (.leaderBoardHabit(let lName, _, _),
-                      .leaderBoardHabit(let rName, _, _)):
+                case (.leaderboardHabit(let lName, _, _),
+                      .leaderboardHabit(let rName, _, _)):
                     return lName == rName
                 case (.followedUser(let lUser, _),
                       .followedUser(let rUser, _)):
@@ -267,7 +267,7 @@ class HomeCollectionViewController: UICollectionViewController {
                     }
                 }
                 
-                let leaderboardItem = ViewModel.Item.leaderBoardHabit(name: statistic.habit.name, leadingUserRanking: leadingRanking, secondaryUserRanking: secondaryRanking)
+                let leaderboardItem = ViewModel.Item.leaderboardHabit(name: statistic.habit.name, leadingUserRanking: leadingRanking, secondaryUserRanking: secondaryRanking)
                 partial.append(leaderboardItem)
                 
             }
@@ -352,16 +352,29 @@ class HomeCollectionViewController: UICollectionViewController {
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell? in
             switch item {
-            case .leaderBoardHabit(let name, let leadingUserRanking, let secondaryUserRanking):
+            case .leaderboardHabit(let name, let leadingUserRanking, let secondaryUserRanking):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LeaderBoardHabit", for: indexPath) as! LeaderBoardCollectionViewCell
                 cell.habitNameLabel.text = name
                 cell.leaderLabel.text = leadingUserRanking
                 cell.secondaryLabel.text = secondaryUserRanking
+                
+                cell.contentView.backgroundColor = favoriteHabitColor.withAlphaComponent(0.75)
+                cell.contentView.layer.cornerRadius = 8
+                cell.layer.shadowRadius = 3
+                cell.layer.shadowColor = UIColor.systemGray3.cgColor
+                cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+                cell.layer.shadowOpacity = 1
+                cell.layer.masksToBounds = false
                 return cell
             case .followedUser(let user, let message):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FollowedUser", for: indexPath) as! FollowedUserCollectionViewCell
                 cell.primaryTextLabel.text = user.name
                 cell.secondaryTextLabel.text = message
+//                if indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1 {
+//                    cell.separatorLineView.isHidden = true
+//                } else {
+//                    cell.separatorLineView.isHidden = false
+//                }
                 return cell
             }
         }

@@ -78,20 +78,10 @@ class LogHabitCollectionViewController: HabitCollectionViewController {
             backgroundConfiguration.cornerRadius = 8
             cell.backgroundConfiguration = backgroundConfiguration
         }
-        
-//        var content = UIListContentConfiguration.cell()
-//        content.text = item.name
-//        content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 11, leading: 8, bottom: 11, trailing: 8)
-//        content.textProperties.alignment = .center
-//        cell.contentConfiguration = content
-//
-//        var backgroundConfiguration = UIBackgroundConfiguration.clear()
-//        if Settings.shared.favoriteHabits.contains(item) {
-//            backgroundConfiguration.backgroundColor = favoriteHabitColor
-//        } else {
-//            backgroundConfiguration.backgroundColor = .systemGray6
-//        }
-//        backgroundConfiguration.cornerRadius = 8
-//        cell.backgroundConfiguration = backgroundConfiguration
+        cell.layer.shadowRadius = 3
+        cell.layer.shadowColor = UIColor.systemGray3.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cell.layer.shadowOpacity = 1
+        cell.layer.masksToBounds = false
     }
 }

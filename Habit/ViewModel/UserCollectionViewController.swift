@@ -89,6 +89,7 @@ class UserCollectionViewController: UICollectionViewController {
             
             var backgroundConfiguration = UIBackgroundConfiguration.clear()
             backgroundConfiguration.backgroundColor = item.user.color?.uiColor ?? UIColor.systemGray4
+            backgroundConfiguration.cornerRadius = 8
             cell.backgroundConfiguration = backgroundConfiguration
             
             return cell
