@@ -7,7 +7,7 @@
 
 import UIKit
 
-
+let favoriteHabitColor = UIColor(hue: 0.15, saturation: 1, brightness: 0.9, alpha: 1)
 
 class HabitCollectionViewController: UICollectionViewController {
     
@@ -35,7 +35,7 @@ class HabitCollectionViewController: UICollectionViewController {
             var sectionColor: UIColor {
                 switch self {
                 case .favorites:
-                    return UIColor(hue: 0.15, saturation: 1, brightness: 0.9, alpha: 1)
+                    return favoriteHabitColor
                 case .category(let category):
                     return category.color.uiColor
                 }
@@ -111,13 +111,17 @@ class HabitCollectionViewController: UICollectionViewController {
         dataSource.applySnapshotUsing(sectionIDs: sectionIDs, itemsBySection: itemsBySection)
     }
     
+    func configureCell(_ cell: UICollectionViewListCell, withItem itemIdentifier: HabitCollectionViewController.ViewModel.Item) {
+        var content = cell.defaultContentConfiguration()
+        content.text = itemIdentifier.name
+        cell.contentConfiguration = content
+    }
+    
     func createDataSource() -> DataSourceType {
-        let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Habit", for: indexPath) as! UICollectionViewListCell
             
-            var content = cell.defaultContentConfiguration()
-            content.text = itemIdentifier.name
-            cell.contentConfiguration = content
+            self.configureCell(cell, withItem: item)
             return cell
         }
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
