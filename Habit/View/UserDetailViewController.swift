@@ -96,6 +96,16 @@ class UserDetailViewController: UIViewController {
             }
             imageRequestTask = nil
         }
+        
+        view.backgroundColor = user.color?.uiColor ?? .white
+        
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = .quaternarySystemFill
+        tabBarController?.tabBar.scrollEdgeAppearance = tabBarAppearance
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundColor = .quaternarySystemFill
+        navigationItem.scrollEdgeAppearance = navBarAppearance
     }
     
     override func viewWillAppear(_ animated: Bool) {

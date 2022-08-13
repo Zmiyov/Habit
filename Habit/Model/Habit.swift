@@ -5,7 +5,7 @@
 //  Created by Vladimir Pisarenko on 30.07.2022.
 //
 
-import Foundation
+import UIKit
 import CoreImage
 
 struct Habit {
@@ -61,3 +61,11 @@ extension Habit: Comparable {
         return lhs.name < rhs.name
     }
 }
+
+extension Color {
+    var uiColor: UIColor {
+        return UIColor(hue: CGFloat(hue), saturation: CGFloat(saturation), brightness: CGFloat(brightness), alpha: 1)
+    }
+}
+
+extension Color: Hashable { }
